@@ -45,9 +45,9 @@ with open('usage.csv', 'w') as csvfile:
     csvfile.write('Date, Gygabytes In, Bytes Out, Events In, Events Out')
     line="\n"
     for i in range(licData['count']):
-       line+=datetime.datetime.fromtimestamp((1734307200000/1000)+21600).strftime('%m-%d-%y %H')
-       line+=f",{str(int(licData['items'][i]['inBytes'])/1000000000)}"                                                                           
-       line+=f",{str(int(licData['items'][i]['outBytes'])/1000000000)}"                                                                           
+       line+=datetime.datetime.fromtimestamp((1734307200000/1000)+21600).strftime('%m-%d-%y')
+       line+=f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"                                                                           
+       line+=f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"                                                                           
        line+=f",{licData['items'][i]['inEvents']}"                                                                           
        line+=f",{licData['items'][i]['outEvents']}"      
        csvfile.write(line)
