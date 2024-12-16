@@ -37,12 +37,8 @@ except Exception:
 
 criblHeaders['Authorization'] = "Bearer " + criblToken
 
-resp = requests.get(criblLicUrl, headers=criblHeaders)
+resp=requests.get(criblLicUrl, headers=criblHeaders)
 licData=resp.json()
-
-
-for i in range(licData['count']):
-    print(licData['items'][i]['inBytes'])
 
 
 with open('usage.csv', 'w') as csvfile:
