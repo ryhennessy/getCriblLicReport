@@ -9,9 +9,9 @@ loginData={}
 #Uncomment and set the following values for the url, login, and password 
 # to hard codd them. The script will then not probmpt for the values via stdin
 ############################################################################
-criblUrl = "http://3.144.32.100"
-loginData['username'] = 'admin'
-loginData['password'] = "Mypassword1!"
+# criblUrl = "http://criblleader.com"
+# loginData['username'] = 'admin'
+# loginData['password'] = "Mypassword1"
 #############################################################################
 
 criblHeaders={'Content-type': 'application/json', 'Accept': 'application/json'}
