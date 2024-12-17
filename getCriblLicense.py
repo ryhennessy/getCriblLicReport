@@ -9,9 +9,9 @@ loginData={}
 #Uncomment and set the following values for the url, login, and password 
 # to hard codd them. The script will then not probmpt for the values via stdin
 ############################################################################
-# criblUrl = "http://criblurl.local"
-# loginData['username'] = 'admin'
-# loginData['password'] = "Mypassword1"
+criblUrl = "http://3.144.32.100"
+loginData['username'] = 'admin'
+loginData['password'] = "Mypassword1!"
 #############################################################################
 
 criblHeaders={'Content-type': 'application/json', 'Accept': 'application/json'}
@@ -45,7 +45,7 @@ with open('usage.csv', 'w') as csvfile:
     csvfile.write('Date, Gygabytes In, Bytes Out, Events In, Events Out')
     line="\n"
     for i in range(licData['count']):
-       line+=datetime.datetime.fromtimestamp((1734307200000/1000)+21600).strftime('%m-%d-%y')
+       line+=datetime.datetime.fromtimestamp((licData['items'][i]['startTime']/1000)+21600).strftime('%m-%d-%y')
        line+=f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"                                                                           
        line+=f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"                                                                           
        line+=f",{licData['items'][i]['inEvents']}"                                                                           
