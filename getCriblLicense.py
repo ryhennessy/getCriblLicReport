@@ -42,7 +42,7 @@ licData=resp.json()
 
 
 with open('usage.csv', 'w') as csvfile:
-    csvfile.write('Date, Gygabytes In, Bytes Out, Events In, Events Out')
+    csvfile.write('Date, Gigabytes In, Gigabytes Out, Events In, Events Out')
     line="\n"
     for i in range(licData['count']):
        line+=datetime.datetime.fromtimestamp((licData['items'][i]['startTime']/1000)+21600).strftime('%m-%d-%y')
