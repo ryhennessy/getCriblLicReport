@@ -6,8 +6,6 @@ import datetime
 
 loginData = {}
 criblHeaders = {"Content-type": "application/json", "Accept": "application/json"}
-criblAuthUrl = criblUrl + ":9000/api/v1/auth/login"
-criblLicUrl = criblUrl + ":9000/api/v1/system/licenses/usage"
 
 # Uncomment and set the following values for the url, login, and password
 # to hard codd them. The script will then not probmpt for the values via stdin
@@ -22,6 +20,8 @@ if "criblUrl" not in vars() or loginData == {}:
     loginData["username"] = input("Login: ").rstrip()
     loginData["password"] = getpass.getpass("Password: ")
 
+criblAuthUrl = criblUrl + ":9000/api/v1/auth/login"
+criblLicUrl = criblUrl + ":9000/api/v1/system/licenses/usage"
 
 try:
     resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders)
