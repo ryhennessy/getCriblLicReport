@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import sys
 import requests
 import getpass
 import datetime
@@ -30,7 +31,8 @@ except Exception:
     print("\nLogin Failed")
     print("------------------------------------")
     print(str(resp.status_code) + " " + resp.text)
-    exit(1)
+    sys.exit(1)
+
 
 criblHeaders["Authorization"] = "Bearer " + criblToken
 
