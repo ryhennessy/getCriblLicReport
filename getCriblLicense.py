@@ -25,7 +25,7 @@ criblAuthUrl = criblUrl + ":9000/api/v1/auth/login"
 criblLicUrl = criblUrl + ":9000/api/v1/system/licenses/usage"
 
 try:
-    resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders)
+    resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
     criblToken = resp.json()["token"]
 except Exception:
     print("\nLogin Failed")
@@ -36,7 +36,7 @@ except Exception:
 
 criblHeaders["Authorization"] = "Bearer " + criblToken
 
-resp = requests.get(criblLicUrl, headers=criblHeaders)
+resp = requests.get(criblLicUrl, headers=criblHeaders,verify=False)
 licData = resp.json()
 
 outputCSV = criblUrl.split("://")[1] + "-usage.csv"
