@@ -54,3 +54,5 @@ with open(outputCSV, "w") as csvfile:
         line += f",{licData['items'][i]['outEvents']}"
         csvfile.write(line)
         line = "\n"
+
+print(f"\nDone! Data saved to {outputCSV}")
