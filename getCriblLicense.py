@@ -8,8 +8,8 @@ import datetime
 loginData = {}
 criblHeaders = {"Content-type": "application/json", "Accept": "application/json"}
 
-# Uncomment and set the following values for the url, login, and password
-# to hard codd them. The script will then not probmpt for the values via stdin
+# Uncomment and set the following values for the URL, login, and password
+# to hard-code them. The script will then not prompt for the values via stdin
 ############################################################################
 # criblUrl = "http://criblleader.com"
 # loginData['username'] = 'admin'
