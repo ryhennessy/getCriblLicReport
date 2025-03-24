@@ -31,7 +31,7 @@ criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
 try:
     resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
     criblToken = resp.json()["token"]
-except Exception:
+except:
     print("\nLogin Failed")
     print("------------------------------------")
     print(str(resp.status_code) + " " + resp.text)
