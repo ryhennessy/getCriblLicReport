@@ -32,7 +32,7 @@ criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
 try:
     resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
     criblToken = resp.json()["token"]
-except requests.exceptions.ConnectionError: 
+except (requests.exceptions.ConnectionError, requests.exceptions.MissingSchema): 
     print("\nInvalid connection string. Verify hostname, port, and protocol.")
     sys.exit(1)
 except:
