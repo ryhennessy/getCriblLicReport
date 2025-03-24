@@ -5,6 +5,7 @@ import requests
 import getpass
 import datetime
 import urllib3
+from requests.exceptions import RequestException
 
 #Added to remove any warning messages from urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -15,9 +16,9 @@ criblHeaders = {"Content-type": "application/json", "Accept": "application/json"
 # Uncomment and set the following values for the URL, login, and password
 # to hard-code them. The script will then not prompt for the values via stdin
 ############################################################################
-# criblUrl = "http://cribleader.com:9000"
+# criblUrl = "https://leaderhostname:9000"
 # loginData['username'] = 'admin'
-# loginData['password'] = "Mypassword1"
+# loginData['password'] = "thepassword"
 #############################################################################
 
 if "criblUrl" not in vars() or loginData == {}:
@@ -31,12 +32,14 @@ criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
 try:
     resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
     criblToken = resp.json()["token"]
+except requests.exceptions.ConnectionError: 
+    print("\nInvalid connection string. Verify hostname, port, and protocol.")
+    sys.exit(1)
 except:
     print("\nLogin Failed")
     print("------------------------------------")
     print(str(resp.status_code) + " " + resp.text)
     sys.exit(1)
-
 
 criblHeaders["Authorization"] = "Bearer " + criblToken
 
