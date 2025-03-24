@@ -4,6 +4,10 @@ import sys
 import requests
 import getpass
 import datetime
+import urllib3
+    
+#Added to remove any warning messages from urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 loginData = {}
 criblHeaders = {"Content-type": "application/json", "Accept": "application/json"}
