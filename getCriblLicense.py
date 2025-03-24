@@ -5,7 +5,7 @@ import requests
 import getpass
 import datetime
 import urllib3
-    
+
 #Added to remove any warning messages from urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -51,7 +51,7 @@ with open(outputCSV, "w") as csvfile:
     line = "\n"
     for i in range(licData["count"]):
         line += datetime.datetime.fromtimestamp(
-            (licData["items"][i]["startTime"] / 1000) + 21600
+            (licData["items"][i]["startTime"] / 1000) 
         ).strftime("%m-%d-%y")
         line += f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"
         line += f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"
