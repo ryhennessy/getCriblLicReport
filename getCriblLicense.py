@@ -15,18 +15,18 @@ criblHeaders = {"Content-type": "application/json", "Accept": "application/json"
 # Uncomment and set the following values for the URL, login, and password
 # to hard-code them. The script will then not prompt for the values via stdin
 ############################################################################
-# criblUrl = "http://cribleader.com"
+# criblUrl = "http://cribleader.com:9000"
 # loginData['username'] = 'admin'
 # loginData['password'] = "Mypassword1"
 #############################################################################
 
 if "criblUrl" not in vars() or loginData == {}:
-    criblUrl = input("Cribl Leader URL (https://leader.examle.com): ").rstrip()
+    criblUrl = input("Cribl Leader URL (https://leader.examle.com:9000): ").rstrip()
     loginData["username"] = input("Login: ").rstrip()
     loginData["password"] = getpass.getpass("Password: ")
 
-criblAuthUrl = criblUrl + ":9000/api/v1/auth/login"
-criblLicUrl = criblUrl + ":9000/api/v1/system/licenses/usage"
+criblAuthUrl = criblUrl + "/api/v1/auth/login"
+criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
 
 try:
     resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
