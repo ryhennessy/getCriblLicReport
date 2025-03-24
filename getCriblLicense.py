@@ -43,7 +43,8 @@ criblHeaders["Authorization"] = "Bearer " + criblToken
 resp = requests.get(criblLicUrl, headers=criblHeaders,verify=False)
 licData = resp.json()
 
-outputCSV = criblUrl.split("://")[1] + "-usage.csv"
+outputCSV = criblUrl.split("://")[1]
+outputCSV = outputCSV.split(":")[0] + "-usage.csv"
 
 with open(outputCSV, "w") as csvfile:
     csvfile.write("Date, Gigabytes In, Gigabytes Out, Events In, Events Out")
