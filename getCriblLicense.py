@@ -50,7 +50,7 @@ outputCSV = criblUrl.split("://")[1]
 outputCSV = outputCSV.split(":")[0] + "-usage.csv"
 
 with open(outputCSV, "w") as csvfile:
-    csvfile.write("Date, Gigabytes In, Gigabytes Out, Events In, Events Out")
+    csvfile.write("Date, Gigabytes In, Gigabytes Out, Cribl2Cribl GB, Events In, Events Out")
     line = "\n"
     for i in range(licData["count"]):
         line += datetime.datetime.fromtimestamp(
@@ -58,6 +58,7 @@ with open(outputCSV, "w") as csvfile:
         ).strftime("%m-%d-%y")
         line += f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"
         line += f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"
+        line += f",{str(float(licData['items'][i]['exemptedLicenseInBytes'])/1000000000)}"
         line += f",{licData['items'][i]['inEvents']}"
         line += f",{licData['items'][i]['outEvents']}"
         csvfile.write(line)
