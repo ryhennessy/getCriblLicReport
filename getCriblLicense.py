@@ -5,6 +5,7 @@ import requests
 import getpass
 import datetime
 import urllib3
+from zoneinfo import ZoneInfo
 from requests.exceptions import RequestException
 
 #Added to remove any warning messages from urllib3
@@ -13,18 +14,24 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 loginData = {}
 criblHeaders = {"Content-type": "application/json", "Accept": "application/json"}
 
-# Uncomment and set the following values for the URL, login, and password
+# Uncomment and set the following values for the URL, login, password, and timezone
 # to hard-code them. The script will then not prompt for the values via stdin
 ############################################################################
 # criblUrl = "https://leaderhostname:9000"
 # loginData['username'] = 'admin'
 # loginData['password'] = "thepassword"
+# reportTimezone = "America/Chicago"  # e.g. America/New_York, America/Denver, UTC
 #############################################################################
 
 if "criblUrl" not in vars() or loginData == {}:
     criblUrl = input("Cribl Leader URL (https://leader.examle.com:9000): ").rstrip()
     loginData["username"] = input("Login: ").rstrip()
     loginData["password"] = getpass.getpass("Password: ")
+
+if "reportTimezone" not in vars():
+    reportTimezone = input("Timezone for report dates (e.g. America/Chicago, UTC) [leave blank for local]: ").rstrip()
+
+reportTZ = ZoneInfo(reportTimezone) if reportTimezone else None
 
 criblAuthUrl = criblUrl + "/api/v1/auth/login"
 criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
@@ -54,7 +61,7 @@ with open(outputCSV, "w") as csvfile:
     line = "\n"
     for i in range(licData["count"]):
         line += datetime.datetime.fromtimestamp(
-            (licData["items"][i]["startTime"] / 1000) 
+            (licData["items"][i]["startTime"] / 1000), tz=reportTZ
         ).strftime("%m-%d-%y")
         line += f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"
         line += f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"
