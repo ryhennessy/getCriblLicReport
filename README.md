@@ -1,6 +1,8 @@
 # getCriblLicReport
 
-A script to pull the Cribl usage metrics from the leader node and store the daily values in a CSV file. The script is written to leverage only the libraries available in a standard Python installation. 
+A script to pull the Cribl usage metrics from the leader node and store the daily values in a CSV file. The script is written to leverage only the libraries available in a standard Python installation.
+
+> **Disclaimer:** The data produced by this script is intended to provide general guidance on usage trends and is not guaranteed to reflect your official licensed usage figures. For accurate licensing information and entitlement details, please work directly with your Cribl account team.
 
 ## Inputs
 The script expects four inputs: leader URL, username, password, and timezone. You can provide these values via prompts when running the script or by hardcoding them at the top of the script. If you hardcode them, uncomment the corresponding lines and set the values.
