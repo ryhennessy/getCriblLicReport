@@ -16,3 +16,13 @@ Common timezone values: `America/New_York`, `America/Chicago`, `America/Denver`,
 
 ## Outputs
 The script will output the historical daily ingest metrics, which will be stored in a file called leaderhostname-usage.csv.
+
+| Column | Description |
+|---|---|
+| Date | The date of the usage period (formatted MM-DD-YY) |
+| Gigabytes In | Total GB ingested for the day |
+| Gigabytes Out | Total GB sent out for the day |
+| Cribl2Cribl GB | GB of data exchanged between Cribl instances (exempt from licensing) |
+| GB In (C2C Removed) | Licensable GB In — total GB ingested minus the Cribl-to-Cribl exempt bytes |
+| Events In | Total number of events ingested for the day |
+| Events Out | Total number of events sent out for the day |
