@@ -5,10 +5,15 @@ import requests
 import getpass
 import datetime
 import urllib3
-from zoneinfo import ZoneInfo
 from requests.exceptions import RequestException
 
-#Added to remove any warning messages from urllib3
+if sys.version_info >= (3, 9):
+    from zoneinfo import ZoneInfo
+else:
+    from backports.zoneinfo import ZoneInfo
+
+
+# Added to remove any warning messages from urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 loginData = {}
@@ -29,7 +34,9 @@ if "criblUrl" not in vars() or loginData == {}:
     loginData["password"] = getpass.getpass("Password: ")
 
 if "reportTimezone" not in vars():
-    reportTimezone = input("Timezone for report dates (e.g. America/Chicago, UTC) [leave blank for local]: ").rstrip()
+    reportTimezone = input(
+        "Timezone for report dates (e.g. America/Chicago, UTC) [leave blank for local]: "
+    ).rstrip()
 
 reportTZ = ZoneInfo(reportTimezone) if reportTimezone else None
 
@@ -37,9 +44,11 @@ criblAuthUrl = criblUrl + "/api/v1/auth/login"
 criblLicUrl = criblUrl + "/api/v1/system/licenses/usage"
 
 try:
-    resp = requests.post(criblAuthUrl, json=loginData, headers=criblHeaders,verify=False)
+    resp = requests.post(
+        criblAuthUrl, json=loginData, headers=criblHeaders, verify=False
+    )
     criblToken = resp.json()["token"]
-except (requests.exceptions.ConnectionError, requests.exceptions.MissingSchema): 
+except (requests.exceptions.ConnectionError, requests.exceptions.MissingSchema):
     print("\nInvalid connection string. Verify hostname, port, and protocol.")
     sys.exit(1)
 except:
@@ -50,14 +59,16 @@ except:
 
 criblHeaders["Authorization"] = "Bearer " + criblToken
 
-resp = requests.get(criblLicUrl, headers=criblHeaders,verify=False)
+resp = requests.get(criblLicUrl, headers=criblHeaders, verify=False)
 licData = resp.json()
 
 outputCSV = criblUrl.split("://")[1]
 outputCSV = outputCSV.split(":")[0] + "-usage.csv"
 
 with open(outputCSV, "w") as csvfile:
-    csvfile.write("Date, Gigabytes In, Gigabytes Out, Cribl2Cribl GB, GB In (C2C Removed), Events In, Events Out")
+    csvfile.write(
+        "Date, Gigabytes In, Gigabytes Out, Cribl2Cribl GB, GB In (C2C Removed), Events In, Events Out"
+    )
     line = "\n"
     for i in range(licData["count"]):
         line += datetime.datetime.fromtimestamp(
@@ -65,7 +76,9 @@ with open(outputCSV, "w") as csvfile:
         ).strftime("%m-%d-%y")
         line += f",{str(float(licData['items'][i]['inBytes'])/1000000000)}"
         line += f",{str(float(licData['items'][i]['outBytes'])/1000000000)}"
-        line += f",{str(float(licData['items'][i]['exemptedLicenseInBytes'])/1000000000)}"
+        line += (
+            f",{str(float(licData['items'][i]['exemptedLicenseInBytes'])/1000000000)}"
+        )
         line += f",{str((float(licData['items'][i]['inBytes']) - float(licData['items'][i]['exemptedLicenseInBytes']))/1000000000)}"
         line += f",{licData['items'][i]['inEvents']}"
         line += f",{licData['items'][i]['outEvents']}"
